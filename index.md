@@ -69,3 +69,10 @@ class App < Roda
   end
 end
 {% endhighlight %}
+
+### Explore Wedge
+
+1. [Component Basics](/pages/component.html)
+1. [Events](/pages/events.html)
+1. [Plugins](/pages/plugins.html)
+    1. [Form](/pages/plugins/form.html)
