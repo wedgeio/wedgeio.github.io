@@ -72,7 +72,9 @@ end
 
 ### Explore Wedge
 
+1. [Integrate With Frameworks](/pages/install.html)
 1. [Component Basics](/pages/component.html)
+1. [Client/Server Components](/pages/component-advanced.html)
 1. [Events](/pages/events.html)
 1. [Plugins](/pages/plugins.html)
-    1. [Form](/pages/plugins/form.html)
+    * [Form](/pages/plugins/form.html)
