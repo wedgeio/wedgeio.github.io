@@ -190,6 +190,12 @@ route do |r|
 end
 {% endhighlight %}
 
+### Client/Server Forms
+
+Much like everything else in Wedge, Forms can exist on both the client and server side. In the example above, the `on :submit` event is triggered on the client side, so when we call form.valid? this also occurs on the client side. This allows for very fast validation however limits the type of validation you can do. You can check things like format of the field, but you cannot do things like compare it to values in the database.
+
+That does not mean you can't have server side validations on your forms as well. You just have to wrap these validations inside an `if server?` block (refer back to [Client/Server Components](/pages/component-advanced.html) to refresh on how the `server?` method works).
+
 ### Nested Forms
 
 Forms can be nested within each other much like you can have nested attributes in a database model. Consider a user object that has an address:
@@ -229,6 +235,39 @@ To specify an attribute that is a nested form all you have to do is pass the att
 {% endhighlight %}
 
 When using the `model_attributes` call as well, the data for nested attributes will be structured in a format that will work with nested attributes support in Sequel or Active Record.
+
+### Custom Validations
+
+You can also add custom validation methods. If you have a particular validation you need just for one form you can add a new validation method directly into that Form class. Or if you want to add validations to be available for all your forms you can add it into the base Form class. Here is a case where we want to make sure a field is unique in the User table of the database. Note because this is a server side only validation we `return unless server?` as the first line so client side validation does not try to run this database specific code:
+
+{% highlight ruby %}
+module CustomValidations
+  def assert_unique key
+    return unless server?
+    assert Models::User.where(key => send(key)).first.nil?, [key, "#{key.to_s.titleize} is not unique"]
+  end
+end
+
+class Wedge::Plugins::Form
+  include CustomValidations
+end
+{% endhighlight %}
+
+You can now use this custom validation inside your form:
+
+{% highlight ruby %}
+module Forms
+  class UserStep1 < Wedge::Plugins::Form
+    name :user_step1_form
+    attr_accessor :email, :password, :password_confirm
+
+    def validate
+      assert_present :email
+      assert_unique :email
+    end
+  end
+end
+{% endhighlight %}
 
 ### Method Reference
 

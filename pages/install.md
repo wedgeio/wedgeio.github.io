@@ -17,7 +17,7 @@ Add to your Gemfile:
 gem 'wedge'
 {% endhighlight %}
 
-Inside your application's initialization:
+Inside your application's initialization file:
 
 {% highlight ruby %}
 require 'wedge'
@@ -57,3 +57,4 @@ If you will be using the client side functionality of Wedge you will need to inc
 * **plugins** - Array - A  list of plugins to auto load for every Component (see [Plugins](/pages/plugins.html) for full list)
 * **cache_assets** - Boolean - stores all compiled Javascript code in cache so it is not recompiled on every page request
 * **assets_url** - String - Path to assets. Can be relative path or an absolute URL. This is useful for integrating with content delivery systems such as Cloudfront
+* **settings** - Hash - Global configuration parameters for Wedge plugins. For example, setting AWS bucket for uploader plugin.

@@ -6,7 +6,7 @@ title: Home
 What Is Wedge
 =============
 
-Wedge was built from a desire to create an easy interface for interacting with users. With Wedge you have a lightweight set of tools to organize and present information, provide maximum code reusability, and interact between client and server actions seamlessly. Wedge is not a framework in itself. Rather it can be plugged in to the framework of your choice to help with rendering contact and accepting user feedback. Wedge also seeks to blur the lines between client and server side coding. With Wedge, you can build methods in plain Ruby which will execute server or client side.
+Wedge was built from a desire to create an easy interface for interacting with users. With Wedge you have a lightweight set of tools to organize and present information, provide maximum code reusability, and interact between client and server actions seamlessly. Wedge is not a framework in itself. Rather it can be plugged in to the framework of your choice to help with rendering contact and accepting user feedback. Wedge also consolidates client and server side coding into easy to maintain Ruby code. You can build methods in plain Ruby which will execute server or client side.
 
 Integration
 ===========
@@ -78,3 +78,4 @@ end
 1. [Events](/pages/events.html)
 1. [Plugins](/pages/plugins.html)
     * [Form](/pages/plugins/form.html)
+    * [Uploader](/pages/plugins/uploader.html)
