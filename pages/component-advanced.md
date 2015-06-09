@@ -5,7 +5,7 @@ title: Client/Server Components
 
 # {{ page.title }}
 
-One of the biggest benefits of Wedge comes from it's integration with [Opal](http://opalrb.org/). With Opal, Wedge components can not only exist natively as Ruby classes server side, but can also be available as Javascript classes on the client. This allows one set of Ruby code to control actions both on the client and the server. Before proceeding with this page be sure you have properly wired up Wedge to your application with the [installation guide](/pages/install.html)
+One of the biggest benefits of Wedge comes from it's integration with [Opal](http://opalrb.org/). With Opal, Wedge components can not only exist natively as Ruby classes server side, but can also be available as Javascript classes on the client. This allows one set of Ruby code to control actions both on the client and the server. Before proceeding with this page be sure you have properly wired up Wedge to your application with the [installation guide](/pages/install.html).
 
 ### Component Example
 
@@ -36,7 +36,7 @@ route do |r|
 end
 {% endhighlight %}
 
-The `to_js` method takes care of all the work for you. It generates all the necessary Javascript through the Opal compiler to allow all client side code of the Wedge component to run. It also gives you client side access to things like HTML templates (see [DOM](/pages/dom.html)).
+The `to_js` method takes care of all the work for you. It generates all the necessary Javascript through the Opal compiler to allow all client side code of the Wedge component to run. It also gives you client side access to things like HTML templates (see [DOM](/pages/dom.html)). **You must invoke a method on the Wedge Component using to_js if you want to have access to all the client side features.**
 
 ### Using Events
 
@@ -111,3 +111,26 @@ Because `server_side_method` was wrapped in the `on :server` block, Wedge knows 
 ### Forms With Client/Server Interaction
 
 One of the most useful purposes of Wedge is to send form submissions to the server, perform some server processing such as saving the data to a database, and then give the user some sort of feedback. Be sure to check the [Form Plugin](/pages/plugins/form.html) for examples on how to perform this.
+
+### Templates On Client Side
+
+In the first article on [Components](/pages/component.html), we discussed using templates as reusable pieces of HTML. Another benefit of Wedge is being able to use these templates also on the client side. In one such real world example imagine you want to offer the user a button, and when they click the button it adds a new row to a table. You can declare the template in the `html` block of the component and it will automatically be available in client side methods as well:
+
+{% highlight ruby %}
+class Root < Wedge::Component
+  name :root
+  html './public/index.html' do
+    tmpl :new_row, dom.find('table>tbody>tr')
+  end
+
+  def display
+    return unless server?
+    dom.html
+  end
+
+  # this event will be triggered on the client side
+  on :click, '#add-button' do |el, evt|
+    dom.find('table>tbody>tr').append tmpl(:new_row)
+  end
+end
+{% endhighlight %}
