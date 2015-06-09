@@ -45,7 +45,7 @@ All Wedge objects, even plugins, inherit from `Wedge::Component`. Each component
 {% highlight ruby %}
 class App
   class SampleComponent < Wedge::Component
-    config.name :sample
+    name :sample
 
     def display
       'This is a sample component'
