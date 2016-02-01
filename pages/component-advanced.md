@@ -36,7 +36,11 @@ route do |r|
 end
 {% endhighlight %}
 
-The `to_js` method takes care of all the work for you. It generates all the necessary Javascript through the Opal compiler to allow all client side code of the Wedge component to run. It also gives you client side access to things like HTML templates (see [DOM](/pages/dom.html)). **You must invoke a method on the Wedge Component using to_js if you want to have access to all the client side features.**
+The `to_js` method takes care of all the work for you. It generates all the necessary Javascript through the Opal compiler to allow all client side code of the Wedge component to run. It also gives you client side access to things like HTML templates (see [DOM](/pages/dom.html)). **You must invoke a method on the Wedge Component using to_js if you want to have access to all the client side features.** Should you need to pass parameters to the method that `to_js` needs to invoke, you can add them after the method name symbol:
+
+{% highlight ruby %}
+wedge(:root).to_js(:display, user_id, show_notes: true)
+{% endhighlight %}
 
 ### Using Events
 

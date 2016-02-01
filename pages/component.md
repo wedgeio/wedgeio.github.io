@@ -49,7 +49,7 @@ class App
 end
 {% endhighlight %}
 
-This block is only run once at the start of your application. This block is ideal for performing processing on the HTML that you do not need to do each time the component is invoked. For example if you have a drop down of states or provinces, you can populate the list here and it will be available at each component call.
+This block is only run once at the start of your application. It is ideal to perform processing on the component that only needs to happen once at application startup. For example if you have a drop down of states or provinces, you can populate the list here. The state of the DOM at the end of this block is what will be available when an instance of this Wedge Component is created.
 
 You can still modify the DOM inside instance methods such as `display`, however any changes made to the DOM here are instance changes and will not persist between component instances:
 
@@ -62,7 +62,7 @@ end
 
 ### Create and Use Templates
 
-Templates are reusable pieces of HTML that get cached on the class level. You can use the `tmpl` method to both set and get a template. Templates are best created in the `html` block:
+Templates are reusable pieces of HTML that get cached on the class level. You can use the `tmpl` method to both set and get a template. Templates are best created in the `html` block. When created inside this block, templates will be available on both client and server side.
 
 {% highlight ruby %}
 class App
@@ -74,6 +74,7 @@ class App
 
     def display
       Models::User.all.each do |user|
+        # Creates a copy of the template DOM
         t = tmpl :user_list_item
         t.find('td').html user.full_name
         dom.find('table.user-list>tbody').append t
